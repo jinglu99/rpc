@@ -18,7 +18,7 @@ public class Consumer {
         ExecutorService executorService = Executors.newFixedThreadPool(50);
         RemoteInterface instance = ProxyFactory.getInstance(RemoteInterface.class);
 
-        for (int i = 0; i<1;i++) {
+        for (int i = 0; i<1000000;i++) {
             int finalI = i;
             executorService.submit(new Runnable() {
                 @Override
@@ -28,8 +28,6 @@ public class Consumer {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 }
             });
         }
