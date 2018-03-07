@@ -20,4 +20,26 @@ public class Constant {
     public static final String SERVICEREGISTRY = "/ServiceAccessCenter/serviceRegistry.do";//服务注册查找中心注册接口URL
     public static final String QUERYSERVICEIPSBYID = "/ServiceAccessCenter/queryServiceIPsByID.do";//服务注册查找中心ip地址列表查询接口URL
     public static final String QUERYSERVICEINFOBYID = "/ServiceAccessCenter/queryServiceInfoByID.do";//服务注册查找中心服务信息查询接口URL
+
+    //==============================
+    //Properties： keys
+    //==============================
+    public static final String PROPERTY_FILE_NAME = "rpc.properties.file";
+    public static final String PROPERTY_APPLICATION_NAME = "rpc.application.name";
+    public static final String PROPERTY_REGISTER_URL = "rpc.register.url";
+    public static final String PROPERTY_REGISTER_PORT = "rpc.register.port";
+
+
+
+
+
+
+
+    //==============================
+    //Properties： default value
+    //==============================
+    public static final String DEFAULT_PROPERTY_FILE = "rpc.properties";
+    public static final String DEFAULT_PROPERTY_APPLICATION_NAME = "rpcApp";
+    public static final String DEFAULT_PROPERTY_REGISTER_URL = "127.0.0.1";
+    public static final String DEFAULT_PROPERTY_REGISTER_PROT = "2181";
 }
