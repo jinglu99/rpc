@@ -1,17 +1,11 @@
 package com.jingl.proxy;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.ObjectArrayCodec;
-import com.jingl.entity.LCRPCRequest;
-import com.jingl.entity.Request;
-import com.jingl.entity.Response;
+import com.jingl.common.entity.Request;
+import com.jingl.common.entity.Response;
 import com.jingl.handle.RequestHandle;
-import com.sun.deploy.net.proxy.ProxyHandler;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
@@ -21,16 +15,15 @@ public class RPCProxy implements MethodInterceptor {
 
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        LCRPCRequest request = new LCRPCRequest();
+        Request request = new Request();
         request.setInterfaceName(o.getClass().getInterfaces()[0].getName());
         request.setMethodName(method.getName());
         request.setParams(objects);
         request.setTypes(method.getParameterTypes());
 
-        RequestHandle handle = new RequestHandle(request);
-        handle.createSocket();
+        RequestHandle handle = new RequestHandle();
 
-        Response rep = handle.proceed();
+        Response rep = (Response) handle.invoke(request);
 
         return rep.getResponse();
     }

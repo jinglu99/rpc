@@ -1,5 +1,11 @@
 package com.jingl.container;
 
+import com.jingl.common.exceptions.ServiceExportFailedException;
+import com.jingl.handle.Handler;
+import com.jingl.handle.ProviderHandle;
+import com.jingl.transfer.SocketExportTransfer;
+import com.jingl.transfer.Transfer;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -14,5 +20,12 @@ public class Container {
 
     public void setInstance(Class clazz, Object obj) {
         container.put(clazz, obj);
+    }
+
+    public int init() throws ServiceExportFailedException {
+        Handler handler = new ProviderHandle();
+        Transfer transfer = new SocketExportTransfer(2532, handler);
+        transfer.export();
+        return 0;
     }
 }

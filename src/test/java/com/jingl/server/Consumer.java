@@ -1,12 +1,9 @@
 package com.jingl.server;
 
-import com.jingl.entity.LCRPCRequest;
-import com.jingl.entity.Request;
-import com.jingl.handle.RequestHandle;
-import com.jingl.proxy.ProxyFactory;
+import com.jingl.proxy.CglibReferProxy;
+import com.jingl.proxy.Proxy;
 import com.jingl.proxy.RemoteInterface;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,7 +13,9 @@ import java.util.concurrent.Executors;
 public class Consumer {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(50);
-        RemoteInterface instance = ProxyFactory.getInstance(RemoteInterface.class);
+        Proxy proxy = new CglibReferProxy();
+        RemoteInterface instance = proxy.getInstance(RemoteInterface.class);
+
 
         for (int i = 0; i<1000000;i++) {
             int finalI = i;

@@ -5,6 +5,4 @@ package com.jingl.proxy;
  */
 public interface RemoteInterface {
     String func(Object var1, Object var2, Object var3);
-
-    void func(Data data);
 }
