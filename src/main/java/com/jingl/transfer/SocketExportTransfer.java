@@ -4,6 +4,7 @@ import com.jingl.common.exceptions.SendDataFailedException;
 import com.jingl.common.exceptions.ServiceExportFailedException;
 import com.jingl.common.exceptions.SocketCloseFailedException;
 import com.jingl.handle.Handler;
+import org.apache.log4j.Logger;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +13,7 @@ import java.net.Socket;
  * Created by Ben on 12/02/2018.
  */
 public class SocketExportTransfer extends Thread implements Transfer {
+    private static Logger logger = Logger.getLogger(SocketExportTransfer.class);
 
     private ServerSocket serverSocket;
     private Handler handler;
@@ -54,19 +56,19 @@ public class SocketExportTransfer extends Thread implements Transfer {
             //阻塞直到关闭
             while (!serverSocket.isClosed());
         }
-        System.out.println("服务关闭");
+        logger.info("服务关闭");
         return 0;
     }
 
     @Override
     public void run() {
         //暴露服务，进行监听
-        System.out.println("start bind port :" + PORT);
+        logger.info("start bind port :" + PORT);
         while (!close) {
             try {
                 // 一旦有堵塞, 则表示服务器与客户端获得了连接
                 Socket socket = serverSocket.accept();
-                System.out.println("receive from " + socket.getInetAddress().getHostAddress());
+                logger.info("receive from " + socket.getInetAddress().getHostAddress());
 
                 // 处理请求
                 if (handler != null) {

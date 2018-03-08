@@ -1,6 +1,6 @@
 package com.jingl.properties;
 
-import com.jingl.common.Constant;
+import com.jingl.common.Constants;
 import com.jingl.utils.PropertyUtils;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class PropertyUtilsTest {
 
     @Test
     public void testChangeDefaultPath() {
-        System.setProperty(Constant.PROPERTY_FILE_NAME, "/Resources/rpc1.properties");
+        System.setProperty(Constants.PROPERTY_FILE_NAME, "/Resources/rpc1.properties");
 
         System.out.println(PropertyUtils.getProperty("rpc.name"));
     }

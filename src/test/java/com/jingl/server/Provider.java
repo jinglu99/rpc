@@ -15,20 +15,20 @@ public class Provider {
     public static void main(String[] args) throws ServiceExportFailedException {
 
         Container container = new Container();
-        RemoteInterface instance = new RemoteInterface() {
-            @Override
-            public String func(Object var1, Object var2, Object var3) {
-                System.out.println("func(var1, var2, var3) called");
-                return "called success";
-            }
-        };
-        container.setInstance(RemoteInterface.class, instance);
+//        RemoteInterface instance = new RemoteInterface() {
+//            @Override
+//            public String func(Object var1, Object var2, Object var3) {
+//                System.out.println("func(var1, var2, var3) called");
+//                return "called success";
+//            }
+//        };
+//        container.setInstance(RemoteInterface.class, instance);
 
-        Handler handler = new ProviderHandle();
-        Transfer transfer = new SocketExportTransfer(2532, handler);
-        transfer.export();
+//        Handler handler = new ProviderHandle();
+//        Transfer transfer = new SocketExportTransfer(2532, handler);
+//        transfer.export();
+        container.init();
 
-        System.out.println("provider start");
         while (true);
     }
 }

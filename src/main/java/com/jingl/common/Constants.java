@@ -3,7 +3,7 @@ package com.jingl.common;
 /**
  * Created by Ben on 26/11/2017.
  */
-public class Constant {
+public class Constants {
     public static final String IP = "127.0.0.1";//本机地址
     public static final int PORT = 8082;
     public static final String SERVICEIDILLEGAL = "接口名称或者版本号不合法";
@@ -25,9 +25,14 @@ public class Constant {
     //Properties： keys
     //==============================
     public static final String PROPERTY_FILE_NAME = "rpc.properties.file";
+
     public static final String PROPERTY_APPLICATION_NAME = "rpc.application.name";
+
     public static final String PROPERTY_REGISTER_URL = "rpc.register.url";
     public static final String PROPERTY_REGISTER_PORT = "rpc.register.port";
+
+    public static final String PROPERTY_PROVIDER_PACKAGE = "rpc.provider.package";
+    public static final String PROPERTY_PROVIDER_PORT = "rpc.provider.port";
 
 
 
@@ -41,5 +46,6 @@ public class Constant {
     public static final String DEFAULT_PROPERTY_FILE = "rpc.properties";
     public static final String DEFAULT_PROPERTY_APPLICATION_NAME = "rpcApp";
     public static final String DEFAULT_PROPERTY_REGISTER_URL = "127.0.0.1";
-    public static final String DEFAULT_PROPERTY_REGISTER_PROT = "2181";
+    public static final String DEFAULT_PROPERTY_REGISTER_PORT = "2181";
+    public static final String DEFAULT_PROPERTY_PROVIDER_PORT = "2532";
 }

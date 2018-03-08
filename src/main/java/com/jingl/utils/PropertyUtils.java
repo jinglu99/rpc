@@ -1,16 +1,15 @@
 package com.jingl.utils;
 
-import com.jingl.common.Constant;
+import com.jingl.common.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Ben on 07/03/2018.
@@ -23,11 +22,16 @@ public class PropertyUtils {
 
     public static String getProperty(String key) {
 
+        //系统配置
+        String value = System.getProperty(key);
+        if (StringUtils.isNotBlank(value)) return value;
+
+        //加载配置文件
         if (properties == null) {
             synchronized (PropertyUtils.class) {
-                String path = System.getProperty(Constant.PROPERTY_FILE_NAME);
+                String path = System.getProperty(Constants.PROPERTY_FILE_NAME);
                 if (path == null) {
-                    path = Constant.DEFAULT_PROPERTY_FILE;
+                    path = Constants.DEFAULT_PROPERTY_FILE;
                 }
                 logger.info("Use '" + path + "' as property file path");
 
@@ -35,7 +39,20 @@ public class PropertyUtils {
             }
         }
 
-        return properties.getProperty(key);
+        value = properties.getProperty(key);
+
+
+        String variableName = "DEFAULT_PROPERTY_" + key.replace(".", "_").replace("rpc_", "").toUpperCase();
+        try {
+            Field field = Constants.class.getField(variableName);
+            value = (String) field.get(Constants.class);
+        } catch (NoSuchFieldException e) {
+            logger.warn("Variable " + key + " not be set");
+        } catch (IllegalAccessException e) {
+            logger.warn("Variable " + key + " can't be access");
+        }
+
+        return value;
     }
 
 
