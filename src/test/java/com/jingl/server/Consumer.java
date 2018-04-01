@@ -17,7 +17,7 @@ public class Consumer {
         RemoteInterface instance = proxy.getInstance(RemoteInterface.class);
 
 
-        for (int i = 0; i<1000000;i++) {
+        for (int i = 0; i<1;i++) {
             int finalI = i;
             executorService.submit(new Runnable() {
                 @Override

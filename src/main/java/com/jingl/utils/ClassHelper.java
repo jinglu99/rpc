@@ -212,7 +212,7 @@ public class ClassHelper {
     }
 
     public static void main(String[] args) {
-        Set<Class> classes = ClassHelper.scan("com.jingl", x->{
+        Set<Class> classes = ClassHelper.scan("/", x->{
             String name= x.getName();
             return name.endsWith("r");
         });

@@ -3,9 +3,11 @@ package com.jingl.container;
 import com.jingl.common.Constants;
 import com.jingl.common.annotation.Provider;
 import com.jingl.common.exceptions.ServiceExportFailedException;
+import com.jingl.common.extension.ExtensionLoader;
 import com.jingl.handle.Handler;
-import com.jingl.handle.ProviderHandle;
-import com.jingl.transfer.SocketExportTransfer;
+import com.jingl.handle.Invoker;
+import com.jingl.handle.handlers.ProviderHandle;
+import com.jingl.transfer.ExportTransfer;
 import com.jingl.transfer.Transfer;
 import com.jingl.utils.ClassHelper;
 import com.jingl.utils.PropertyUtils;
@@ -25,6 +27,8 @@ public class Container {
 
     private static int PORT = Integer.valueOf(PropertyUtils.getProperty(Constants.PROPERTY_PROVIDER_PORT));
 
+    private static ExportTransfer transfer = (ExportTransfer) ExtensionLoader.getExtensionLoder(ExportTransfer.class).getActiveInstance();
+
     public Object getInstance(Class clazz) {
         return container.get(clazz);
     }
@@ -38,9 +42,9 @@ public class Container {
 
         loadServiceWithAnnotation();    //扫描注解
 
-        Handler handler = new ProviderHandle();
-        Transfer transfer = new SocketExportTransfer(2532, handler);
-        transfer.export();
+//        Invoker handler = new ProviderHandle();
+//        transfer.setParams(PORT, handler);
+//        transfer.export();
         return 0;
     }
 
@@ -61,7 +65,7 @@ public class Container {
         for (Class clazz : classes) {
             try {
                 logger.info("Add provider: " + clazz.getName());
-                setInstance(clazz, clazz.newInstance());
+                setInstance(clazz.getInterfaces()[0], clazz.newInstance());
             } catch (Exception e) {
                 logger.warn("Can't initialize Provider: " + clazz.getName());
             }

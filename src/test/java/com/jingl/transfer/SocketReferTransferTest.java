@@ -18,11 +18,10 @@ public class SocketReferTransferTest {
      */
     @Test
     public void send() throws ConnectionFailedException, SendDataFailedException, SocketCloseFailedException, IOException {
-        URL url = new URL(null, "localhost", 1234, null, null);
-        Transfer transfer = new SocketReferTransfer(url);
-        String text = "hello world!";
-        System.out.println("send : " + text);
-        byte[] rep = transfer.send(text.getBytes());
-        System.out.println("receive : " + new String(rep));
+//        URL url = new URL(null, "localhost", 1234, null, null);
+//        String text = "hello world!";
+//        System.out.println("send : " + text);
+//        byte[] rep = transfer.send(text);
+//        System.out.println("receive : " + new String(rep));
     }
 }

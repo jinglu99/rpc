@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
  * @author lindezhi
  * 2016年6月13日 下午4:25:03
  */
-public class JdkSerializer implements RPCSerializer {
+public class JdkRPCSerializer implements RPCSerializer {
 
 	/**
 	 * 先序列化再执行压缩，减少网络流量

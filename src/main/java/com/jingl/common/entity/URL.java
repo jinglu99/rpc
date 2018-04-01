@@ -21,13 +21,6 @@ public final class URL {
 
     private volatile transient String ip;
 
-    public URL() {
-        this.protocol = null;
-        this.host = null;
-        this.port = -1;
-        this.path = null;
-    }
-
     public URL(String protocol, String host, int port, String path, Map params) {
         this.protocol = protocol;
         this.host = host;
@@ -150,5 +143,15 @@ public final class URL {
         return this.ip;
     }
 
-
+    @Override
+    public String toString() {
+        return "URL{" +
+                "protocol='" + protocol + '\'' +
+                ", host='" + host + '\'' +
+                ", port=" + port +
+                ", path='" + path + '\'' +
+                ", params=" + params +
+                ", ip='" + ip + '\'' +
+                '}';
+    }
 }

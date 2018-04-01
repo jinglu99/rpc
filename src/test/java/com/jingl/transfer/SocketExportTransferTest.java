@@ -4,6 +4,7 @@ import com.jingl.common.exceptions.ConnectionFailedException;
 import com.jingl.common.exceptions.ServiceExportFailedException;
 import com.jingl.common.exceptions.SocketCloseFailedException;
 import com.jingl.handle.Handler;
+//import com.jingl.transfer.socket.SocketExportTransfer;
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
@@ -49,8 +50,8 @@ public class SocketExportTransferTest {
             }
         };
 
-        Transfer transfer = new SocketExportTransfer(1234, handler);
-        transfer.export();
+//        Transfer transfer = new SocketExportTransfer(1234, handler);
+//        transfer.export();
         while (true) ;
     }
 
@@ -62,14 +63,14 @@ public class SocketExportTransferTest {
     public void closeExport() throws ServiceExportFailedException, ConnectionFailedException, SocketCloseFailedException {
 
 
-        Transfer transfer = new SocketExportTransfer(1234, null);
-        transfer.export();
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-        }
-
-        transfer.close();
+//        Transfer transfer = new SocketExportTransfer(1234, null);
+//        transfer.export();
+//
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//        }
+//
+//        transfer.close();
     }
 }

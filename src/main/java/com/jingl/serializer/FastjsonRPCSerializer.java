@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 /**
  * Created by Ben on 13/02/2018.
  */
-public class FastjsonSerializer implements RPCSerializer {
+public class FastjsonRPCSerializer implements RPCSerializer {
 
     @Override
     public byte[] serialize(Object obj) {

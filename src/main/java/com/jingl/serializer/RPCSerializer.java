@@ -1,10 +1,12 @@
 package com.jingl.serializer;
 
+import com.jingl.common.annotation.Impl;
 import com.jingl.common.exceptions.SerializeException;
 
 /**
  * Created by Ben on 13/02/2018.
  */
+@Impl("fastjson")
 public interface RPCSerializer {
     /**
      * 序列化

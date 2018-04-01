@@ -6,9 +6,14 @@ import java.io.Serializable;
  * Created by Ben on 26/11/2017.
  */
 public class Response implements Serializable {
+    long id;
     Object response;
 
-    public Response(Object response) {
+    public Response() {
+    }
+
+    public Response(long id, Object response) {
+        this.id = id;
         this.response = response;
     }
 
@@ -18,6 +23,14 @@ public class Response implements Serializable {
 
     public void setResponse(Object response) {
         this.response = response;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

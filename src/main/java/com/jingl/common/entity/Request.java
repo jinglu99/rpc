@@ -2,12 +2,15 @@ package com.jingl.common.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * Created by Ben on 26/11/2017.
  */
 public class Request implements Serializable{
     private static final long serialVersionUID = 520L;
+
+    private long id;
 
     private String interfaceName;//服务对应接口名称
     private String version;//版本号
@@ -59,12 +62,22 @@ public class Request implements Serializable{
         this.types = types;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "LCRPCRequest{" +
-                "interfaceName='" + interfaceName + '\'' +
+        return "Request{" +
+                "id='" + id + '\'' +
+                ", interfaceName='" + interfaceName + '\'' +
                 ", version='" + version + '\'' +
                 ", methodName='" + methodName + '\'' +
+                ", types=" + Arrays.toString(types) +
                 ", params=" + Arrays.toString(params) +
                 '}';
     }

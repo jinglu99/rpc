@@ -1,10 +1,11 @@
-package com.jingl.handle;
+package com.jingl.handle.invokers;
 
 import com.jingl.container.Container;
 import com.jingl.common.entity.Request;
 import com.jingl.common.entity.Response;
 import com.jingl.common.exceptions.InvokerException;
-import com.jingl.serializer.FastjsonSerializer;
+import com.jingl.handle.Invoker;
+import com.jingl.serializer.FastjsonRPCSerializer;
 import com.jingl.serializer.RPCSerializer;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -18,7 +19,7 @@ import java.net.Socket;
 public class ProviderInvoker implements Invoker,Runnable {
 
     Container container = new Container();
-    RPCSerializer serializer = new FastjsonSerializer();
+    RPCSerializer serializer = new FastjsonRPCSerializer();
 
     private Socket socket;
     private Request request;
@@ -84,7 +85,8 @@ public class ProviderInvoker implements Invoker,Runnable {
             Object instance = container.getInstance(clazz);
             Method method = clazz.getMethod(request.getMethodName(), request.getTypes());
             Object result = method.invoke(instance, request.getParams());
-            return new Response(result);
+//            return new Response(result);
+            return null;
         } catch (Exception e) {
             throw new InvokerException(e);
         }

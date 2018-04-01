@@ -1,17 +1,16 @@
 package com.jingl.serialize;
 
-
 import com.jingl.common.entity.Request;
 import com.jingl.common.exceptions.SerializeException;
-import com.jingl.serializer.FastjsonSerializer;
+import com.jingl.serializer.JdkRPCSerializer;
 import com.jingl.serializer.RPCSerializer;
 import org.junit.Test;
 
 /**
  * Created by Ben on 13/02/2018.
  */
-public class FastjsonSerializerTest {
-    @Test
+public class JdkRPCSerializerTest {
+    @org.junit.Test
     public void serialize() throws SerializeException {
         Request request = new Request();
         request.setInterfaceName("test");
@@ -19,10 +18,12 @@ public class FastjsonSerializerTest {
         request.setParams(new Object[]{"hello",1});
         request.setTypes(new Class[]{String.class, int.class});
 
-        RPCSerializer serializer = new FastjsonSerializer();
+        RPCSerializer serializer = new JdkRPCSerializer();
 
         System.out.println(new String(serializer.serialize(request)));
     }
+
+
 
     @Test
     public void deserialize() throws SerializeException {
@@ -32,7 +33,7 @@ public class FastjsonSerializerTest {
         request.setParams(new Object[]{"hello",1});
         request.setTypes(new Class[]{String.class, int.class});
 
-        RPCSerializer serializer = new FastjsonSerializer();
+        RPCSerializer serializer = new JdkRPCSerializer();
 
         Request request1 = serializer.deserialize(serializer.serialize(request), Request.class);
         System.out.println(request1.toString());
