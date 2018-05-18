@@ -7,7 +7,7 @@ import com.jingl.rpc.common.exceptions.InvokerException;
 import com.jingl.rpc.handle.Invoker;
 import com.jingl.rpc.serializer.FastjsonRPCSerializer;
 import com.jingl.rpc.serializer.RPCSerializer;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.*;
 import java.lang.reflect.Method;

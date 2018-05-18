@@ -14,6 +14,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.CountDownLatch;
@@ -27,7 +28,7 @@ public class NettyExportTransfer implements ExportTransfer {
 
     private Bootstrap bootstrap;
     private EventLoopGroup bossGroup = new NioEventLoopGroup();
-    private EventLoopGroup workerGroup = new NioEventLoopGroup(1);
+    private EventLoopGroup workerGroup = new NioEventLoopGroup();
     private final CountDownLatch latch = new CountDownLatch(1);
     private volatile Invoker invoker;
     private volatile Channel channel;
@@ -57,6 +58,12 @@ public class NettyExportTransfer implements ExportTransfer {
             }
         }).start();
         return 0;
+    }
+
+    @Override
+    public boolean isActive() {
+        if (channel == null) return false;
+        return channel.isActive();
     }
 
     @Override

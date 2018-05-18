@@ -20,7 +20,12 @@ public class MethodInvoker implements Invoker{
             Container container = new Container();
             Object instance = container.getInstance(clazz);
             Method method = clazz.getMethod(request.getMethodName(), request.getTypes());
-            Object result = method.invoke(instance, request.getParams());
+            Object result = null;
+            try {
+                result = method.invoke(instance, request.getParams());
+            } catch (Exception e) {
+                throw new InvokerException(e.getCause());
+            }
             Response response = new Response();
             response.setId(request.getId());
             response.setResponse(result);

@@ -2,8 +2,7 @@ package com.jingl.rpc.common.entity;
 
 import com.google.common.collect.Lists;
 import com.jingl.rpc.utils.NetUtils;
-import org.apache.commons.collections.map.HashedMap;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,7 @@ public final class URL {
     private final String host;
     private final int port;
     private final String interfaceName;
-    private final Map<String, Object> params = new HashedMap();
+    private final Map<String, Object> params = new HashMap();
 
     private volatile transient String ip;
 
@@ -68,7 +67,7 @@ public final class URL {
         if (StringUtils.isBlank(key)) {
             return this;
         }
-        Map newMap = new HashedMap(params);
+        Map newMap = new HashMap(params);
         newMap.put(key, obj);
         return new URL(protocol, host, port, interfaceName, params);
     }
@@ -78,7 +77,7 @@ public final class URL {
     }
 
     public URL removeParamter(String key) {
-        Map newMap = new HashedMap(params);
+        Map newMap = new HashMap(params);
         newMap.remove(key);
         return new URL(protocol, host, port, interfaceName, params);
     }
@@ -159,10 +158,9 @@ public final class URL {
         URL url = (URL) o;
 
         if (port != url.port) return false;
-        if (protocol != null ? !protocol.equals(url.protocol) : url.protocol != null) return false;
-        if (host != null ? !host.equals(url.host) : url.host != null) return false;
-        return interfaceName != null ? !interfaceName.equals(url.interfaceName) : url.interfaceName != null;
-
+        if (!StringUtils.equals(protocol, url.protocol)) return false;
+        if (!StringUtils.equals(host, url.host)) return false;
+        return StringUtils.equals(interfaceName, url.interfaceName);
     }
 
     @Override
@@ -171,7 +169,16 @@ public final class URL {
         result = 31 * result + (host != null ? host.hashCode() : 0);
         result = 31 * result + port;
         result = 31 * result + (interfaceName != null ? interfaceName.hashCode() : 0);
-        result = 31 * result + (params != null ? params.hashCode() : 0);
         return result;
+    }
+
+    public static void main(String[] args) {
+        URL url1 = new URL("rpc","127.0.0.1",2532, null, null);
+        URL url2 = new URL("rpc","127.0.0.1",2532, null, null);
+
+        System.out.println(url1.hashCode());
+        System.out.println(url2.hashCode());
+        System.out.println(url1.equals(url2));
+
     }
 }

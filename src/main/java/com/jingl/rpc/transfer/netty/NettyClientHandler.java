@@ -24,7 +24,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         InetSocketAddress local = (InetSocketAddress) ctx.channel().localAddress();
         InetSocketAddress remote = (InetSocketAddress) ctx.channel().remoteAddress();
 
-        logger.info("local address: " + local.getHostString() + "connect to remote address: " + remote.getHostString() + " at port: " + remote.getPort());
+        logger.info("local address: " + local.getHostString() + " connect to remote address: " + remote.getHostString() + " at port: " + remote.getPort());
     }
 
     @Override

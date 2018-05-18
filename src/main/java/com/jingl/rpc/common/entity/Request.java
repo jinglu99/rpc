@@ -7,15 +7,13 @@ import java.util.UUID;
 /**
  * Created by Ben on 26/11/2017.
  */
-public class Request implements Serializable{
+public class Request implements Serializable {
     private static final long serialVersionUID = 520L;
 
     private long id;
-
     private String interfaceName;//服务对应接口名称
-    private String version;//版本号
     private String methodName;//调用方法名称
-    private Class[] types;
+    private Class[] types;  //返回值类型
     private Object[] params;//调用方法参数
 
     public static long getSerialVersionUID() {
@@ -28,14 +26,6 @@ public class Request implements Serializable{
 
     public void setInterfaceName(String interfaceName) {
         this.interfaceName = interfaceName;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     public String getMethodName() {
@@ -75,7 +65,6 @@ public class Request implements Serializable{
         return "Request{" +
                 "id='" + id + '\'' +
                 ", interfaceName='" + interfaceName + '\'' +
-                ", version='" + version + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", types=" + Arrays.toString(types) +
                 ", params=" + Arrays.toString(params) +

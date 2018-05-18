@@ -1,6 +1,7 @@
 package com.jingl.rpc.common.entity;
 
 import com.jingl.rpc.pools.TransferPool;
+import com.jingl.rpc.transfer.Transfer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,8 +34,11 @@ public class Directory {
 
     public URL getOne() {
         //// TODO: 2018/5/1 软负载均衡逻辑
-        if (urls.size() > 0)
-            return new ArrayList<URL>(urls).get(0);
+        List<URL> tmp = new ArrayList<>(urls);
+        if (tmp.size() > 0) {
+            int index = (int) (Math.random() * tmp.size());
+            return tmp.get(index);
+        }
 
         return null;
     }

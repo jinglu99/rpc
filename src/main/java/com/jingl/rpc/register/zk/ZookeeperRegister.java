@@ -51,7 +51,7 @@ public class ZookeeperRegister implements Register {
                 if (client == null) {
                     try {
                         String connectionStr = new StringBuilder(zkHost).append(":").append(zkPort).toString();
-                        client = CuratorFrameworkFactory.newClient(connectionStr, new ExponentialBackoffRetry(1000, 3)); //// TODO: 2018/4/27 重试机制，待研究
+                        client = CuratorFrameworkFactory.newClient(connectionStr,1000, 1000, new ExponentialBackoffRetry(1000, 3)); //// TODO: 2018/4/27 重试机制，待研究
                         client.start();
                         register();
                         watch();

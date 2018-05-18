@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.jingl.rpc.common.entity.Directory;
 import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.ConnectionFailedException;
+import com.jingl.rpc.common.exceptions.DeadProviderException;
+import com.jingl.rpc.common.exceptions.NoAvailableConnectionException;
 import com.jingl.rpc.common.exceptions.NoProviderFoundException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;
@@ -36,7 +38,7 @@ public class TestCluster implements Cluster {
     }
 
     @Override
-    public Transfer getTransfer(Class clazz) throws NoProviderFoundException {
+    public Transfer getTransfer(Class clazz) throws NoProviderFoundException, NoAvailableConnectionException {
         Directory directory = map.get(clazz);
         if (directory == null)
             throw new NoProviderFoundException();
@@ -50,8 +52,12 @@ public class TestCluster implements Cluster {
         Transfer transfer = null;
         try {
             transfer = TransferPool.getTransfer(url);
-        } catch (ConnectionFailedException e) {
-            directory.remove(url);
+        } catch (DeadProviderException e) {
+            synchronized (url) {
+                TransferPool.remove(url);
+                directory.remove(url);
+            }
+            throw new NoAvailableConnectionException();
         }
         return transfer;
     }

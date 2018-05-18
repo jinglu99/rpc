@@ -1,19 +1,19 @@
 package com.jingl.rpc.serializer;
 
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jingl.rpc.common.exceptions.SerializeException;
 
 /**
- * Created by Ben on 13/02/2018.
+ * Created by Ben on 2018/5/9.
  */
-public class FastjsonRPCSerializer implements RPCSerializer {
+public class JacksonRPCSerializer implements RPCSerializer {
+
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public byte[] serialize(Object obj) throws SerializeException {
         try {
-
-            String rsp = JSON.toJSONString(obj);
-            return rsp.getBytes();
+            return mapper.writeValueAsBytes(obj);
         } catch (Exception e) {
             throw new SerializeException(e);
         }
@@ -22,8 +22,7 @@ public class FastjsonRPCSerializer implements RPCSerializer {
     @Override
     public <T> T deserialize(byte[] bytes, Class T) throws SerializeException {
         try {
-            Object object = JSON.parseObject(bytes, T);
-            return (T) object;
+            return (T) mapper.readValue(bytes,T);
         } catch (Exception e) {
             throw new SerializeException(e);
         }

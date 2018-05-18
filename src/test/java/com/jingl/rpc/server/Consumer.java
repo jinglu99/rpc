@@ -17,8 +17,8 @@ import java.util.concurrent.Executors;
 public class Consumer {
     public static void main(String[] args) throws InterruptedException {
         int wait = 0;
-        int requestNo = 1;
-        int threadNo = 1;
+        int requestNo = 1000000;
+        int threadNo = 200;
         for (int i = 0; i<wait; i++) {
             Thread.sleep(1000);
             System.out.println(wait-i);

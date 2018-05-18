@@ -1,6 +1,7 @@
 package com.jingl.rpc.transfer.netty;
 
 import com.jingl.rpc.handle.Invoker;
+import com.jingl.rpc.pools.ProviderPool;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -10,10 +11,13 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
-    public Invoker invoker;
+    private final Invoker invoker;
+
+    private final ProviderPool providerPool;
 
     public NettyServerHandler(Invoker invoker) {
         this.invoker = invoker;
+        this.providerPool = new ProviderPool(this.invoker);
     }
 
     @Override
@@ -23,15 +27,15 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(io.netty.channel.ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf) msg;
-        int length = ((ByteBuf) msg).readableBytes();
-        byte[] data = new byte[length];
+        try {
+            ByteBuf buf = (ByteBuf) msg;
+            int length = ((ByteBuf) msg).readableBytes();
+            byte[] data = new byte[length];
 
-        buf.readBytes(data);
-        buf.release();
-
-        byte[] response = (byte[]) invoker.invoke(data);
-        ctx.writeAndFlush(response);
+            buf.readBytes(data);
+            buf.release();
+            providerPool.submit(ctx, data);
+        } catch (Exception e) {}
     }
 
     @Override

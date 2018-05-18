@@ -37,9 +37,19 @@ public class NettyReferTransfer extends Thread implements ReferTransfer {
     }
 
     @Override
-    public int refer() {
+    public boolean isActive() {
+        return client.isActive();
+    }
+
+    @Override
+    public int refer() throws ConnectionFailedException {
         client.connect();
         return 0;
+    }
+
+    @Override
+    public boolean isDead() {
+        return client.isDead();
     }
 
     @Override
@@ -50,7 +60,7 @@ public class NettyReferTransfer extends Thread implements ReferTransfer {
 
 
     @Override
-    public void setParams(URL url, Invoker invoker) throws ConnectionFailedException {
+    public void setParams(URL url, Invoker invoker) {
         client.setParams(url, invoker);
     }
 }

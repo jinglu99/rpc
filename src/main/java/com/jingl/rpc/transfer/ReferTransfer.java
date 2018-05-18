@@ -12,7 +12,9 @@ import com.jingl.rpc.handle.Invoker;
 @Impl(value = "netty",property = Constants.PROPERTY_EXPORT_TRANSFER)
 public interface ReferTransfer extends Transfer {
 
-    int refer();
+    int refer() throws ConnectionFailedException;
 
-    void setParams(URL url, Invoker invoker) throws ConnectionFailedException;
+    boolean isDead();
+
+    void setParams(URL url, Invoker invoker);
 }

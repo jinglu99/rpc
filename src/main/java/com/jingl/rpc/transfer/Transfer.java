@@ -9,5 +9,7 @@ import com.jingl.rpc.common.exceptions.SocketCloseFailedException;
 public interface Transfer {
     byte[] send(byte[] data) throws SendDataFailedException, SocketCloseFailedException;
 
+    boolean isActive();
+
     int close() throws SocketCloseFailedException;
 }

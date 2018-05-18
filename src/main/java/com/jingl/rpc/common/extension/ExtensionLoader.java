@@ -9,7 +9,7 @@ import com.jingl.rpc.transfer.Transfer;
 import com.jingl.rpc.utils.PropertyUtils;
 import com.jingl.rpc.transfer.ExportTransfer;
 import com.jingl.rpc.utils.ClassHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.Set;

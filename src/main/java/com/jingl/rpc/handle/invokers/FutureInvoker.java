@@ -1,11 +1,15 @@
 package com.jingl.rpc.handle.invokers;
 
+import com.jingl.rpc.common.Constants;
 import com.jingl.rpc.common.entity.Invocation;
 import com.jingl.rpc.common.entity.Response;
 import com.jingl.rpc.common.exceptions.InvokerException;
 import com.jingl.rpc.handle.Invoker;
 import com.jingl.rpc.pools.InvocationPool;
+import com.jingl.rpc.utils.PropertyUtils;
 import org.apache.log4j.Logger;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 将请求调用放入池中，最外层Invoker
@@ -13,6 +17,7 @@ import org.apache.log4j.Logger;
  */
 public class FutureInvoker implements Invoker {
     private static final Logger logger = Logger.getLogger(FutureInvoker.class);
+    private static final long timeout = Long.valueOf(PropertyUtils.getProperty(Constants.PROPERTY_PROVIDER_TIMEOUT));
 
     private final Invoker invoker;
 
@@ -31,11 +36,8 @@ public class FutureInvoker implements Invoker {
         try {
             InvocationPool.addInvocation(invocation);
             invoker.invoke(invocation);
-            Response response = invocation.getQueue().take();
-            if (!response.isSuccess()) {
-                throw new InvokerException(response.getException());
-            }
-            return response.getResponse();
+            Response response = invocation.getQueue().poll(timeout, TimeUnit.MILLISECONDS);
+            return response;
         } catch (InterruptedException e) {
             throw new InvokerException(e);
         } finally {

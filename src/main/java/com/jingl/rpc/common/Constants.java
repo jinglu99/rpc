@@ -31,6 +31,15 @@ public class Constants {
 
     public static final String PROPERTY_EXPORT_TRANSFER = "rpc.provider.transfer";
 
+    public static final String PROPERTY_NETTY_RETRY = "rpc.netty.retry";
+    public static final String PROPERTY_NETTY_INTERVAL = "rpc.netty.interval";
+
+    public static final String PROPERTY_SERIALIZE_TYPE = "rpc.serialize.type";
+
+    public static final String PROPERTY_PROVIDER_TIMEOUT = "rpc.provider.timeout";
+
+    public static final String PROPERTY_PROVIDER_THREAD = "rpc.provider.thread";
+
 
 
 
@@ -43,9 +52,14 @@ public class Constants {
     public static final String DEFAULT_PROPERTY_REGISTER_PORT = "2181";
     public static final String DEFAULT_PROPERTY_REGISTER_ROOT = "rpc";
     public static final String DEFAULT_PROPERTY_PROVIDER_PORT = "2532";
-    public static final String DEFAULT_PROPERTY_CONSUMER_CONNECTIONS = "1";
+    public static final String DEFAULT_PROPERTY_CONSUMER_CONNECTIONS = "3";
     public static final String DEFAULT_PROPERTY_REGISTER_TYPE = "zookeeper";
     public static final String DEFAULT_PROPERTY_CONSUMER_RETRY = "3";
+
+    public static final String DEFAULT_PROPERTY_NETTY_RETRY = "3";
+    public static final String DEFAULT_PROPERTY_NETTY_INTERVAL = "1000";
+    public static final String DEFAULT_PROPERTY_PROVIDER_TIMEOUT = "3000";
+    public static final String DEFAULT_PROPERTY_PROVIDER_THREAD = "10";
 
 
 

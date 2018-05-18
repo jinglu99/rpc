@@ -4,8 +4,7 @@ import com.jingl.rpc.common.exceptions.ConnectionFailedException;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
 import com.jingl.rpc.common.exceptions.SocketCloseFailedException;
 import com.jingl.rpc.handle.Handler;
-//import com.jingl.transfer.socket.SocketExportTransfer;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import java.io.IOException;

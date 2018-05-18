@@ -23,10 +23,10 @@ public class ExceptionInvoker implements Invoker {
         try {
             request = (Request) val;
             return next.invoke(val);
-        } catch (Exception e) {
+        } catch (InvokerException e) {
             Response response = new Response();
             response.setId(request.getId());
-            response.setException(e);
+            response.setException(e.getCause());
             return response;
         }
     }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Response implements Serializable {
     private long id;
     private Object response;
-    private Exception exception;
+    private Throwable exception;
     private boolean isSuccess = true;
 
     public Response() {
@@ -30,11 +30,11 @@ public class Response implements Serializable {
         this.response = response;
     }
 
-    public Exception getException() {
+    public Throwable getException() {
         return exception;
     }
 
-    public void setException(Exception exception) {
+    public void setException(Throwable exception) {
         this.exception = exception;
         if (exception != null) {
             isSuccess = false;
