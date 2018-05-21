@@ -12,8 +12,8 @@
 //import com.jingl.rpc.handle.Invoker;
 //import com.jingl.rpc.serializer.FastjsonRPCSerializer;
 //import com.jingl.rpc.serializer.RPCSerializer;
-//import com.jingl.rpc.transfer.ReferTransfer;
-//import com.jingl.rpc.transfer.Transfer;
+//import com.jingl.rpc.exchanger.ReferTransfer;
+//import com.jingl.rpc.exchanger.Exchanger;
 //
 ///**
 // * Created by Ben on 26/11/2017.
@@ -27,8 +27,8 @@
 //        }
 //
 //        @Override
-//        public Transfer getTransfer(Class clazz) throws ConnectionFailedException {
-//            ReferTransfer referTransfer = (ReferTransfer) ExtensionLoader.getExtensionLoader(ReferTransfer.class).newInstance();
+//        public Exchanger getExchanger(Class clazz) throws ConnectionFailedException {
+//            ReferExchanger referTransfer = (ReferExchanger) ExtensionLoader.getExtensionLoader(ReferExchanger.class).newInstance();
 //            referTransfer.setParams(new URL(null, "localhost", 2532, null, null), null);
 //            return referTransfer;
 //        }
@@ -54,13 +54,13 @@
 //
 //        try {
 //            //获得一个连接
-//            Transfer transfer = cluster.getTransfer(null);
+//            Exchanger exchanger = cluster.getExchanger(null);
 //
 //            //序列化
 //            byte[] reqBytes = serializer.serialize(request);
 //
 //            //发送请求
-////            Response repBytes = transfer.send(request);
+////            Response repBytes = exchanger.send(request);
 //
 //            return null;
 //        } catch (ConnectionFailedException e) {

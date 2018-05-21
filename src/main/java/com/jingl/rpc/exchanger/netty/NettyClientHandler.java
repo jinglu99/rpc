@@ -1,4 +1,4 @@
-package com.jingl.rpc.transfer.netty;
+package com.jingl.rpc.exchanger.netty;
 
 import com.jingl.rpc.handle.Invoker;
 import io.netty.buffer.ByteBuf;

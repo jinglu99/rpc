@@ -1,4 +1,4 @@
-package com.jingl.rpc.transfer.netty;
+package com.jingl.rpc.exchanger.netty;
 
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 

@@ -22,7 +22,9 @@ public class ExceptionInvoker implements Invoker {
         Request request = null;
         try {
             request = (Request) val;
-            return next.invoke(val);
+            if (next != null)
+                return next.invoke(val);
+            else return null;
         } catch (InvokerException e) {
             Response response = new Response();
             response.setId(request.getId());

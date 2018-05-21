@@ -5,8 +5,8 @@
 //import ServiceExportFailedException;
 //import SocketCloseFailedException;
 //import Handler;
-//import ExportTransfer;
-//import Transfer;
+//import ExportExchanger;
+//import Exchanger;
 //import org.apache.log4j.Logger;
 //
 //import java.net.ServerSocket;
@@ -15,7 +15,7 @@
 ///**
 // * Created by Ben on 12/02/2018.
 // */
-//public class SocketExportTransfer extends Thread implements ExportTransfer {
+//public class SocketExportTransfer extends Thread implements ExportExchanger {
 //    private static Logger logger = Logger.getLogger(SocketExportTransfer.class);
 //
 //    private ServerSocket serverSocket;

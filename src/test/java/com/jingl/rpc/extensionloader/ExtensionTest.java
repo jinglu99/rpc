@@ -2,8 +2,8 @@ package com.jingl.rpc.extensionloader;
 
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.register.Register;
-import com.jingl.rpc.transfer.ReferTransfer;
-import com.jingl.rpc.transfer.Transfer;
+import com.jingl.rpc.exchanger.ReferExchanger;
+import com.jingl.rpc.exchanger.Exchanger;
 import org.junit.Test;
 
 /**
@@ -12,8 +12,8 @@ import org.junit.Test;
 public class ExtensionTest {
     @Test
     public void getExtension() {
-        Transfer clazz = null;
-        clazz = (Transfer) ExtensionLoader.getExtensionLoader(ReferTransfer.class).newInstance();
+        Exchanger clazz = null;
+        clazz = (Exchanger) ExtensionLoader.getExtensionLoader(ReferExchanger.class).newInstance();
         System.out.println(clazz.getClass().getName());
     }
 

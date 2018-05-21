@@ -4,6 +4,7 @@ import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.container.Container;
+import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
 import com.jingl.rpc.register.Register;
 import org.apache.zookeeper.ZooKeeper;
 import org.junit.Test;
@@ -13,7 +14,7 @@ import org.junit.Test;
  */
 public class ZkTest {
     @Test
-    public void zkConnectTest() throws ServiceExportFailedException {
+    public void zkConnectTest() throws ServiceExportFailedException, FailToGenerateInvokerException {
         Container.init();
         Register register = (Register) ExtensionLoader.getExtensionLoader(Register.class, "zookeeper").getActiveInstance();
         register.connect();

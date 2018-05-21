@@ -1,7 +1,6 @@
 package com.jingl.rpc.common.entity;
 
-import com.jingl.rpc.transfer.ReferTransfer;
-import com.jingl.rpc.transfer.Transfer;
+import com.jingl.rpc.exchanger.Exchanger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +32,7 @@ public class Invocation {
 
     private volatile boolean isException = false;
 
-    private volatile Transfer transfer;
+    private volatile Exchanger exchanger;
 
     private volatile URL providerURL;
 
@@ -117,12 +116,12 @@ public class Invocation {
     }
 
 
-    public Transfer getTransfer() {
-        return transfer;
+    public Exchanger getExchanger() {
+        return exchanger;
     }
 
-    public void setTransfer(Transfer transfer) {
-        this.transfer = transfer;
+    public void setExchanger(Exchanger exchanger) {
+        this.exchanger = exchanger;
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.jingl.rpc.netty.test;
 
 import com.jingl.rpc.common.entity.Request;
 import com.jingl.rpc.common.entity.Response;
-import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.InvokerException;
 import com.jingl.rpc.common.exceptions.SerializeException;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
@@ -10,7 +9,7 @@ import com.jingl.rpc.common.exceptions.SocketCloseFailedException;
 import com.jingl.rpc.handle.Invoker;
 import com.jingl.rpc.serializer.FastjsonRPCSerializer;
 import com.jingl.rpc.serializer.RPCSerializer;
-import com.jingl.rpc.transfer.netty.NettyExportTransfer;
+import com.jingl.rpc.exchanger.netty.NettyExportExchanger;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -24,7 +23,7 @@ public class ExportTest {
 
     @Test
     public void nettyExportTest() throws ServiceExportFailedException, InterruptedException, IOException, SocketCloseFailedException {
-        NettyExportTransfer transfer = new NettyExportTransfer();
+        NettyExportExchanger transfer = new NettyExportExchanger();
         transfer.setParams(0, new TestInvoker());
         transfer.export();
 

@@ -1,4 +1,4 @@
-package com.jingl.rpc.transfer;
+package com.jingl.rpc.exchanger;
 
 import com.jingl.rpc.common.exceptions.ConnectionFailedException;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
@@ -15,7 +15,7 @@ import java.net.Socket;
 /**
  * Created by Ben on 12/02/2018.
  */
-public class SocketExportTransferTest {
+public class SocketExportExchangerTest {
 
     /**
      * 暴露服务测试
@@ -49,8 +49,8 @@ public class SocketExportTransferTest {
             }
         };
 
-//        Transfer transfer = new SocketExportTransfer(1234, handler);
-//        transfer.export();
+//        Exchanger exchanger = new SocketExportTransfer(1234, handler);
+//        exchanger.export();
         while (true) ;
     }
 
@@ -62,14 +62,14 @@ public class SocketExportTransferTest {
     public void closeExport() throws ServiceExportFailedException, ConnectionFailedException, SocketCloseFailedException {
 
 
-//        Transfer transfer = new SocketExportTransfer(1234, null);
-//        transfer.export();
+//        Exchanger exchanger = new SocketExportTransfer(1234, null);
+//        exchanger.export();
 //
 //        try {
 //            Thread.sleep(5000);
 //        } catch (InterruptedException e) {
 //        }
 //
-//        transfer.close();
+//        exchanger.close();
     }
 }

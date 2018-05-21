@@ -7,12 +7,12 @@ import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.handle.handlers.ProviderHandle;
-import com.jingl.rpc.protocol.ExportProtocol;
+import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.pools.ProviderPool;
 import com.jingl.rpc.protocol.Protocol;
 import com.jingl.rpc.register.Register;
 import com.jingl.rpc.utils.PropertyUtils;
-import com.jingl.rpc.transfer.ExportTransfer;
+import com.jingl.rpc.exchanger.ExportExchanger;
 import com.jingl.rpc.utils.ClassHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -29,15 +29,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Container {
     private static Logger logger = Logger.getLogger(Container.class);
 
-    private static ConcurrentHashMap<Class, ServiceContainer> container = new ConcurrentHashMap();
-
     private static int PORT = Integer.valueOf(PropertyUtils.getProperty(Constants.PROPERTY_PROVIDER_PORT));
 
-    private static ExportTransfer transfer = (ExportTransfer) ExtensionLoader.getExtensionLoader(ExportTransfer.class).getActiveInstance();
+    private static ExportExchanger exchanger = (ExportExchanger) ExtensionLoader.getExtensionLoader(ExportExchanger.class).getActiveInstance();
 
     private static Register register = (Register) ExtensionLoader.getExtensionLoader(Register.class).getActiveInstance();
 
-    private static Protocol protocol = new ExportProtocol();
+    private static Protocol protocol = (Protocol) ExtensionLoader.getExtensionLoader(Protocol.class, "provider").getActiveInstance();
+
+    private static ConcurrentHashMap<Class, ServiceContainer> container = new ConcurrentHashMap();
 
     public static Object getInstance(Class clazz) {
         return container.get(clazz).getInstance();
@@ -51,10 +51,13 @@ public class Container {
         logger.info("Start initialize Provider Container");
 
         loadServiceWithAnnotation();    //扫描注解
-
-        Invoker handler = protocol.getInvoker();
-        transfer.setParams(PORT, handler);
-        transfer.export();
+        try {
+            Invoker handler = protocol.getInvoker();
+            ProviderPool.setNextInvoker(handler);
+        } catch (FailToGenerateInvokerException e) {
+            throw new ServiceExportFailedException(e);
+        }
+        exchanger.export();
         register.connect();
         return 0;
     }

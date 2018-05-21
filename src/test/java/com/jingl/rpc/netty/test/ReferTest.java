@@ -5,10 +5,10 @@ import com.jingl.rpc.common.entity.Response;
 import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.*;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.transfer.Transfer;
+import com.jingl.rpc.exchanger.Exchanger;
 import com.jingl.rpc.serializer.FastjsonRPCSerializer;
 import com.jingl.rpc.serializer.RPCSerializer;
-import com.jingl.rpc.transfer.netty.NettyReferTransfer;
+import com.jingl.rpc.exchanger.netty.NettyReferExchanger;
 import org.junit.Test;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -25,7 +25,7 @@ public class ReferTest {
 
     @Test
     public void referTest() throws ConnectionFailedException, SerializeException, SocketCloseFailedException, InterruptedException, SendDataFailedException {
-        NettyReferTransfer transfer = new NettyReferTransfer();
+        NettyReferExchanger transfer = new NettyReferExchanger();
         URL url = new URL(null, "localhost", 2532, null, null);
         ReferInvoker invoker = new ReferInvoker();
         transfer.setParams(url, invoker);
@@ -36,7 +36,7 @@ public class ReferTest {
         System.out.println(response.getResponse().toString());
     }
 
-    private Response send(Transfer transfer, String msg) throws SerializeException, SocketCloseFailedException, SendDataFailedException, InterruptedException {
+    private Response send(Exchanger exchanger, String msg) throws SerializeException, SocketCloseFailedException, SendDataFailedException, InterruptedException {
         BlockingQueue queue = new ArrayBlockingQueue(1);
         Request request = new Request();
 
@@ -47,7 +47,7 @@ public class ReferTest {
 
         RPCSerializer serializer = new FastjsonRPCSerializer();
         byte[] req = serializer.serialize(request);
-        transfer.send(req);
+        exchanger.send(req);
 
         Response response = (Response) queue.take();
         return response;

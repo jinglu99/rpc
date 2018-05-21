@@ -13,8 +13,16 @@ import com.jingl.rpc.serializer.RPCSerializer;
  * 异步返回调用结果
  * Created by Ben on 2018/4/20.
  */
-public class ResponserInvoker implements Invoker {
+public class ResponseInvoker implements Invoker {
     private final RPCSerializer serializer = (RPCSerializer) ExtensionLoader.getExtensionLoader(RPCSerializer.class).getActiveInstance();
+
+    private final Invoker before;
+    private final Invoker next;
+
+    public ResponseInvoker(Invoker before, Invoker next) {
+        this.before = before;
+        this.next = next;
+    }
 
     @Override
     public Object invoke(Object val) throws InvokerException {
@@ -25,8 +33,19 @@ public class ResponserInvoker implements Invoker {
         try {
             response = serializer.deserialize(bytes, Response.class);
             id = response.getId();
+
+            //返回结果前调用
+            if (before != null) {
+                before.invoke(response);
+            }
+
             invocation = InvocationPool.getInvocation(id);
             invocation.getQueue().add(response);
+
+            //返回结果后调用
+            if (next != null) {
+                next.invoke(response);
+            }
         } catch (Exception e) {
             invocation = InvocationPool.getInvocation(id);
             e.printStackTrace();

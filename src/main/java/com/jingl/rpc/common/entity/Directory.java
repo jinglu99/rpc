@@ -1,10 +1,6 @@
 package com.jingl.rpc.common.entity;
 
-import com.jingl.rpc.pools.TransferPool;
-import com.jingl.rpc.transfer.Transfer;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 

@@ -1,6 +1,8 @@
 package com.jingl.rpc.common.entity;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ben on 26/11/2017.
@@ -10,6 +12,8 @@ public class Response implements Serializable {
     private Object response;
     private Throwable exception;
     private boolean isSuccess = true;
+    private Map values = null;
+
 
     public Response() {
     }
@@ -49,6 +53,14 @@ public class Response implements Serializable {
         isSuccess = success;
     }
 
+    public Map getValues() {
+        return values;
+    }
+
+    public void setValues(Map values) {
+        this.values = values;
+    }
+
     @Override
     public String toString() {
         return "Response{" +
@@ -56,6 +68,7 @@ public class Response implements Serializable {
                 ", response=" + response +
                 ", exception=" + exception +
                 ", isSuccess=" + isSuccess +
+                ", values=" + values +
                 '}';
     }
 }

@@ -4,8 +4,8 @@ import com.jingl.rpc.cluster.Cluster;
 import com.jingl.rpc.common.entity.Invocation;
 import com.jingl.rpc.common.exceptions.InvokerException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
+import com.jingl.rpc.exchanger.Exchanger;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.transfer.Transfer;
 import org.apache.log4j.Logger;
 
 /**
@@ -30,8 +30,8 @@ public class RouterInvoker implements Invoker {
         }
 
         try {
-            Transfer transfer = cluster.getTransfer(invocation.getClazz());
-            invocation.setTransfer(transfer);
+            Exchanger exchanger = cluster.getTransfer(invocation.getClazz());
+            invocation.setExchanger(exchanger);
             return nextInvoker.invoke(invocation);
         } catch (InvokerException e) {
             throw e;

@@ -1,4 +1,4 @@
-package com.jingl.rpc.transfer.netty;
+package com.jingl.rpc.exchanger.netty;
 
 import com.jingl.rpc.common.Constants;
 import com.jingl.rpc.common.entity.URL;
@@ -8,7 +8,6 @@ import com.jingl.rpc.handle.Invoker;
 import com.jingl.rpc.utils.PropertyUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;

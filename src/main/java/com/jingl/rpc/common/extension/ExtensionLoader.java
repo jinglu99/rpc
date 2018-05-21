@@ -5,13 +5,14 @@ import com.jingl.rpc.common.annotation.Impl;
 import com.jingl.rpc.common.exceptions.FailToInitInstance;
 import com.jingl.rpc.common.exceptions.NoImplClassFoundException;
 import com.jingl.rpc.common.exceptions.NotInterfaceExcetption;
-import com.jingl.rpc.transfer.Transfer;
+import com.jingl.rpc.exchanger.Exchanger;
+import com.jingl.rpc.exchanger.ExportExchanger;
 import com.jingl.rpc.utils.PropertyUtils;
-import com.jingl.rpc.transfer.ExportTransfer;
 import com.jingl.rpc.utils.ClassHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Modifier;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,7 +31,7 @@ public class ExtensionLoader<T> {
     private final static ConcurrentHashMap<Class, Object> EXTENSION_INSTANCE = new ConcurrentHashMap<>();
 
     public static ExtensionLoader getExtensionLoader(Class clazz) {
-        if (!clazz.isInterface()) {
+        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers())) {
             logger.error("ExtensionLoader only initialize Interface");
             throw new NotInterfaceExcetption();
         }
@@ -44,7 +45,7 @@ public class ExtensionLoader<T> {
     }
 
     public static ExtensionLoader getExtensionLoader(Class clazz, String name) {
-        if (!clazz.isInterface()) {
+        if (!clazz.isInterface()  && !Modifier.isAbstract(clazz.getModifiers())) {
             logger.error("ExtensionLoader only initialize Interface");
             throw new NotInterfaceExcetption();
         }
@@ -218,7 +219,7 @@ public class ExtensionLoader<T> {
     }
 
     public static void main(String[] args) throws NotInterfaceExcetption, IllegalAccessException, NoImplClassFoundException, InstantiationException {
-        Transfer clazz = (Transfer) ExtensionLoader.getExtensionLoader(ExportTransfer.class).getActiveInstance();
+        Exchanger clazz = (Exchanger) ExtensionLoader.getExtensionLoader(ExportExchanger.class).getActiveInstance();
         System.out.println(clazz.getClass().getName());
     }
 }

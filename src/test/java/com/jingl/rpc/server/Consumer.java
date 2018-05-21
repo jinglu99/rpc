@@ -1,5 +1,6 @@
 package com.jingl.rpc.server;
 
+import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
 import com.jingl.rpc.proxy.CglibReferProxy;
 import com.jingl.rpc.proxy.Proxy;
 import com.jingl.rpc.proxy.RemoteInterface;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
  * Created by Ben on 26/11/2017.
  */
 public class Consumer {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, FailToGenerateInvokerException {
         int wait = 0;
         int requestNo = 1000000;
         int threadNo = 200;

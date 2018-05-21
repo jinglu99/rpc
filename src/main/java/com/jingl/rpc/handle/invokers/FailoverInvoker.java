@@ -1,16 +1,10 @@
 package com.jingl.rpc.handle.invokers;
 
-import com.jingl.rpc.cluster.Cluster;
 import com.jingl.rpc.common.Constants;
 import com.jingl.rpc.common.entity.Invocation;
 import com.jingl.rpc.common.entity.Response;
-import com.jingl.rpc.common.entity.URL;
-import com.jingl.rpc.common.exceptions.ConnectionFailedException;
 import com.jingl.rpc.common.exceptions.InvokerException;
-import com.jingl.rpc.common.exceptions.NoProviderFoundException;
-import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.transfer.Transfer;
 import com.jingl.rpc.utils.PropertyUtils;
 import org.apache.log4j.Logger;
 

@@ -15,15 +15,28 @@ import java.util.concurrent.ThreadPoolExecutor;
  * Created by Ben on 2018/5/10.
  */
 public class ProviderPool {
-    private final Invoker nextInvoker;
+    private static volatile Invoker nextInvoker;
+    private static volatile Invoker afterResponseInvoker;
     private static final int threadNo = Integer.valueOf(PropertyUtils.getProperty(Constants.PROPERTY_PROVIDER_THREAD));
     private static final ExecutorService executor = Executors.newFixedThreadPool(threadNo);
 
-    public ProviderPool(Invoker invoker) {
-        this.nextInvoker = invoker;
+    public static Invoker getNextInvoker() {
+        return nextInvoker;
     }
 
-    public void submit(ChannelHandlerContext ctx, byte[] data) {
+    public static void setNextInvoker(Invoker nextInvoker) {
+        ProviderPool.nextInvoker = nextInvoker;
+    }
+
+    public static Invoker getAfterResponseInvoker() {
+        return afterResponseInvoker;
+    }
+
+    public static void setAfterResponseInvoker(Invoker afterResponseInvoker) {
+        ProviderPool.afterResponseInvoker = afterResponseInvoker;
+    }
+
+    public static void submit(ChannelHandlerContext ctx, byte[] data) {
         try {
             executor.submit(new Runnable() {
                 @Override
@@ -32,6 +45,8 @@ public class ProviderPool {
                     try {
                         response = (byte[]) nextInvoker.invoke(data);
                         ctx.writeAndFlush(response);
+                        if (afterResponseInvoker != null)
+                            afterResponseInvoker.invoke(response);
                     } catch (InvokerException e) {
                         e.printStackTrace();
                     }

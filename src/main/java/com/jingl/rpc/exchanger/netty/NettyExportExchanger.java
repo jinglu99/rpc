@@ -1,11 +1,11 @@
-package com.jingl.rpc.transfer.netty;
+package com.jingl.rpc.exchanger.netty;
 
 import com.jingl.rpc.common.Constants;
 import com.jingl.rpc.common.exceptions.SendDataFailedException;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
 import com.jingl.rpc.common.exceptions.SocketCloseFailedException;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.transfer.ExportTransfer;
+import com.jingl.rpc.exchanger.ExportExchanger;
 import com.jingl.rpc.utils.Peppa;
 import com.jingl.rpc.utils.PropertyUtils;
 import io.netty.bootstrap.Bootstrap;
@@ -14,7 +14,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.concurrent.DefaultThreadFactory;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.CountDownLatch;
@@ -23,14 +22,13 @@ import java.util.concurrent.CountDownLatch;
 /**
  * Created by Ben on 31/03/2018.
  */
-public class NettyExportTransfer implements ExportTransfer {
-    private static Logger logger = Logger.getLogger(NettyExportTransfer.class);
+public class NettyExportExchanger implements ExportExchanger {
+    private static Logger logger = Logger.getLogger(NettyExportExchanger.class);
 
     private Bootstrap bootstrap;
     private EventLoopGroup bossGroup = new NioEventLoopGroup();
     private EventLoopGroup workerGroup = new NioEventLoopGroup();
     private final CountDownLatch latch = new CountDownLatch(1);
-    private volatile Invoker invoker;
     private volatile Channel channel;
 
     @Override
@@ -80,14 +78,6 @@ public class NettyExportTransfer implements ExportTransfer {
      * port 无效
      */
     public void setParams(int port, Invoker invoker) throws ServiceExportFailedException {
-        if (this.invoker == null) {
-            synchronized (this) {
-                if (this.invoker == null) {
-                    this.invoker = invoker;
-                }
-            }
-        }
-
     }
 
     private void doExport() throws InterruptedException {
@@ -102,7 +92,7 @@ public class NettyExportTransfer implements ExportTransfer {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         socketChannel.pipeline().addLast(new NettyDecoder());
                         socketChannel.pipeline().addLast(new NettyEncoder());
-                        socketChannel.pipeline().addLast(new NettyServerHandler(invoker));
+                        socketChannel.pipeline().addLast(new NettyServerHandler());
                     }
                 })
                 .option(ChannelOption.SO_BACKLOG, 128)

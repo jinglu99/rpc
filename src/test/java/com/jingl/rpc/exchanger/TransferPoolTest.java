@@ -1,12 +1,10 @@
-package com.jingl.rpc.transfer;
+package com.jingl.rpc.exchanger;
 
 import com.jingl.rpc.common.entity.URL;
-import com.jingl.rpc.common.exceptions.ConnectionFailedException;
 import com.jingl.rpc.common.exceptions.DeadProviderException;
 import com.jingl.rpc.common.exceptions.NoAvailableConnectionException;
-import com.jingl.rpc.common.exceptions.SocketCloseFailedException;
-import com.jingl.rpc.handle.invokers.ResponserInvoker;
-import com.jingl.rpc.pools.TransferPool;
+import com.jingl.rpc.handle.invokers.ResponseInvoker;
+import com.jingl.rpc.pools.ExchangerPool;
 import org.junit.Test;
 
 /**
@@ -16,21 +14,21 @@ public class TransferPoolTest {
     @Test
     public void testTransferPoolConnect() throws InterruptedException {
         URL url = new URL("rpc", "127.0.0.1", 2532, null, null);
-        TransferPool.connect(url, new ResponserInvoker());
-        Transfer transfer = null;
+        ExchangerPool.connect(url, new ResponseInvoker(null,null));
+        Exchanger exchanger = null;
         try {
-            transfer = TransferPool.getTransfer(url);
+            exchanger = ExchangerPool.getTransfer(url);
         } catch (NoAvailableConnectionException e) {
             e.printStackTrace();
         } catch (DeadProviderException e) {
             e.printStackTrace();
         }
 //        Thread.sleep(5000);
-//        transfer.close();
+//        exchanger.close();
 
         while (true) {
             Thread.sleep(1000);
-            System.out.println(transfer.isActive());
+            System.out.println(exchanger.isActive());
         }
     }
 }

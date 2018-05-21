@@ -2,11 +2,12 @@ package com.jingl.rpc.protocol;
 
 import com.jingl.rpc.common.annotation.Impl;
 import com.jingl.rpc.handle.Invoker;
+import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
 
 /**
  * Created by Ben on 2018/4/19.
  */
-@Impl("RPC")
+@Impl("default")
 public interface Protocol {
-    Invoker getInvoker();
+    Invoker getInvoker() throws FailToGenerateInvokerException;
 }
