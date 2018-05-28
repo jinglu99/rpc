@@ -30,7 +30,7 @@ public class RouterInvoker implements Invoker {
         }
 
         try {
-            Exchanger exchanger = cluster.getTransfer(invocation.getClazz());
+            Exchanger exchanger = cluster.getTransfer(invocation);
             invocation.setExchanger(exchanger);
             return nextInvoker.invoke(invocation);
         } catch (InvokerException e) {

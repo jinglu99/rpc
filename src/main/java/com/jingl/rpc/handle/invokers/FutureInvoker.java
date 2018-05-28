@@ -4,11 +4,14 @@ import com.jingl.rpc.common.Constants;
 import com.jingl.rpc.common.entity.Invocation;
 import com.jingl.rpc.common.entity.Response;
 import com.jingl.rpc.common.exceptions.InvokerException;
+import com.jingl.rpc.common.exceptions.TimeOutException;
 import com.jingl.rpc.handle.Invoker;
 import com.jingl.rpc.pools.InvocationPool;
 import com.jingl.rpc.utils.PropertyUtils;
 import org.apache.log4j.Logger;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,11 +40,24 @@ public class FutureInvoker implements Invoker {
             InvocationPool.addInvocation(invocation);
             invoker.invoke(invocation);
             Response response = invocation.getQueue().poll(timeout, TimeUnit.MILLISECONDS);
+            if (response == null) {
+                throw new TimeOutException();
+            }
             return response;
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             throw new InvokerException(e);
         } finally {
             InvocationPool.removeInvoceation(invocation.getId());
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue queue = new ArrayBlockingQueue(1);
+        try {
+            queue.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }

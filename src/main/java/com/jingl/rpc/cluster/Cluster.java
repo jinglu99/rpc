@@ -2,6 +2,7 @@ package com.jingl.rpc.cluster;
 
 import com.jingl.rpc.common.annotation.Impl;
 import com.jingl.rpc.common.entity.Directory;
+import com.jingl.rpc.common.entity.Invocation;
 import com.jingl.rpc.common.exceptions.ConnectionFailedException;
 import com.jingl.rpc.common.exceptions.NoAvailableConnectionException;
 import com.jingl.rpc.common.exceptions.NoProviderFoundException;
@@ -16,7 +17,7 @@ public interface Cluster {
 
     void init();
 
-    Exchanger getTransfer(Class clazz) throws NoProviderFoundException, NoAvailableConnectionException;
+    Exchanger getTransfer(Invocation invocation) throws NoProviderFoundException, NoAvailableConnectionException;
 
     Directory getDirectory(Class clazz);
 

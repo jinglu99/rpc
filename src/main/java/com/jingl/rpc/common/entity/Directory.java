@@ -1,5 +1,8 @@
 package com.jingl.rpc.common.entity;
 
+import com.jingl.rpc.cluster.LoadBalance;
+import com.jingl.rpc.common.extension.ExtensionLoader;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -11,6 +14,8 @@ public class Directory {
     private final Class clazz;
 
     private final CopyOnWriteArraySet<URL> urls = new CopyOnWriteArraySet();
+
+    private static LoadBalance loadBalance = (LoadBalance) ExtensionLoader.getExtensionLoader(LoadBalance.class).getActiveInstance();
 
     public Directory(Class clazz) {
         this.clazz = clazz;
@@ -28,14 +33,7 @@ public class Directory {
         return new ArrayList<URL>(urls);
     }
 
-    public URL getOne() {
-        //// TODO: 2018/5/1 软负载均衡逻辑
-        List<URL> tmp = new ArrayList<>(urls);
-        if (tmp.size() > 0) {
-            int index = (int) (Math.random() * tmp.size());
-            return tmp.get(index);
-        }
-
-        return null;
+    public URL getOne(Invocation invocation) {
+        return (URL) loadBalance.select(invocation, urls);
     }
 }

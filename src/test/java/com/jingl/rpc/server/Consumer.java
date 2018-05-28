@@ -4,8 +4,8 @@ import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
 import com.jingl.rpc.proxy.CglibReferProxy;
 import com.jingl.rpc.proxy.Proxy;
 import com.jingl.rpc.proxy.RemoteInterface;
+import com.jingl.rpc.server.service.TestInterface;
 
-import java.beans.SimpleBeanInfo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
@@ -28,6 +28,7 @@ public class Consumer {
         ExecutorService executorService = Executors.newFixedThreadPool(threadNo);
         Proxy proxy = new CglibReferProxy();
         RemoteInterface instance = proxy.getInstance(RemoteInterface.class);
+        TestInterface test = proxy.getInstance(TestInterface.class);
         CountDownLatch latch = new CountDownLatch(requestNo);
 
 
@@ -38,7 +39,7 @@ public class Consumer {
                 @Override
                 public void run() {
                     try {
-                        instance.func("1", 1, 1.0);
+                        test.get1kb();
 //                        System.out.println(instance.func("1", 1, 1.0));
                     } catch (Exception e) {
                         e.printStackTrace();

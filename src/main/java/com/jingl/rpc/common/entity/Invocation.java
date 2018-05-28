@@ -14,7 +14,7 @@ import java.util.concurrent.BlockingQueue;
  */
 public class Invocation {
 
-    private final long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    private final long id = UUID.randomUUID().getMostSignificantBits();
 
     private volatile Class clazz;
 

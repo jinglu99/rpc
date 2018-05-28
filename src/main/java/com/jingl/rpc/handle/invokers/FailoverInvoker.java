@@ -39,6 +39,7 @@ public class FailoverInvoker implements Invoker {
                 exception = e;
                 continue;
             }
+
             if (response.isSuccess()) {
                 return response.getResponse();  //如果调用成功返回结果
             } else {

@@ -1,6 +1,7 @@
 package com.jingl.rpc.cluster;
 
 import com.jingl.rpc.common.entity.Directory;
+import com.jingl.rpc.common.entity.Invocation;
 import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.ConnectionFailedException;
 import com.jingl.rpc.common.exceptions.DeadProviderException;
@@ -31,12 +32,12 @@ public class RpcCluster implements Cluster {
     }
 
     @Override
-    public Exchanger getTransfer(Class clazz) throws NoProviderFoundException, NoAvailableConnectionException {
-        Directory directory = map.get(clazz);
+    public Exchanger getTransfer(Invocation invocation) throws NoProviderFoundException, NoAvailableConnectionException {
+        Directory directory = map.get(invocation.getClazz());
         if (directory == null)
             throw new NoProviderFoundException();
 
-        URL url = directory.getOne();
+        URL url = directory.getOne(invocation);
         if (url == null) {
             throw new NoProviderFoundException();
         }

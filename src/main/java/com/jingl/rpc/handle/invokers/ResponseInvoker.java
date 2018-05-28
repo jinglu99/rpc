@@ -47,8 +47,8 @@ public class ResponseInvoker implements Invoker {
                 next.invoke(response);
             }
         } catch (Exception e) {
-            invocation = InvocationPool.getInvocation(id);
-            e.printStackTrace();
+//            invocation = InvocationPool.getInvocation(id);
+//            e.printStackTrace();
         }
         return null;
     }

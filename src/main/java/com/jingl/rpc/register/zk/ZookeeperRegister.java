@@ -25,6 +25,9 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -93,6 +96,19 @@ public class ZookeeperRegister implements Register {
                     cache = new TreeCache(client, ROOT);
                     cache.start();
                     cache.getListenable().addListener(new ZKListener());
+
+                    ScheduledExecutorService service = Executors
+                            .newSingleThreadScheduledExecutor();
+                    service.scheduleAtFixedRate(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                fetch();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 10, 3, TimeUnit.SECONDS);
                 }
             }
         }

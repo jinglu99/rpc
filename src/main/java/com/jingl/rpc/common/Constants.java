@@ -27,7 +27,7 @@ public class Constants {
     public static final String PROPERTY_CONSUMER_CONNECTIONS = "rpc.consumer.connections";
     public static final String PROPERTY_CONSUMER_RETRY = "rpc.consumer.retry";
     public static final String PROPERTY_CONSUMER_PROTOCOL = "rpc.consumer.protocol";
-
+    public static final String PROPERTY_CONSUMER_LOAD = "rpc.consumer.load";
 
     public static final String PROPERTY_EXPORT_EXCHANGER = "rpc.provider.exchanger";
     public static final String PROPERTY_PROVIDER_TIMEOUT = "rpc.provider.timeout";
