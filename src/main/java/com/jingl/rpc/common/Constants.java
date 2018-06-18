@@ -42,6 +42,7 @@ public class Constants {
 
     public static final String PROPERTY_SERIALIZE_TYPE = "rpc.serialize.type";
 
+    public static final String PROPERTY_PACKAGES = "rpc.packages";
 
 
     //==============================
@@ -55,7 +56,7 @@ public class Constants {
     public static final String DEFAULT_PROPERTY_REGISTER_ROOT = "rpc";
     public static final String DEFAULT_PROPERTY_REGISTER_TYPE = "zookeeper";
 
-    public static final String DEFAULT_PROPERTY_CONSUMER_CONNECTIONS = "3";
+    public static final String DEFAULT_PROPERTY_CONSUMER_CONNECTIONS = "1";
     public static final String DEFAULT_PROPERTY_CONSUMER_PROTOCOL = "default";
     public static final String DEFAULT_PROPERTY_CONSUMER_RETRY = "3";
 

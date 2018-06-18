@@ -45,7 +45,7 @@ public class ExtensionLoader<T> {
     }
 
     public static ExtensionLoader getExtensionLoader(Class clazz, String name) {
-        if (!clazz.isInterface()  && !Modifier.isAbstract(clazz.getModifiers())) {
+        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers())) {
             logger.error("ExtensionLoader only initialize Interface");
             throw new NotInterfaceExcetption();
         }
@@ -135,14 +135,27 @@ public class ExtensionLoader<T> {
                 String name = x.getSimpleName();
                 return StringUtils.equals(name, finalClazzName);
             });
-            if (clazzs.size() == 1) {
+            if (clazzs.size() > 0) {
                 return (Class) clazzs.toArray()[0];
-            } else {
-                //无法找到实现类，抛出异常
-                if (implClass == null) {
-                    logger.error("can't find implement class: " + clazzName);
-                    throw new NoImplClassFoundException();
+            }
+
+            final String[] packages = PropertyUtils.getProperty(Constants.PROPERTY_PACKAGES).split("[\\s,]");
+            for (String p : packages) {
+                clazzs = ClassHelper.scan(p, x -> {
+                    String name = x.getSimpleName();
+                    return StringUtils.equals(name, finalClazzName);
+                });
+
+                if (clazzs.size() > 0) {
+                    return (Class) clazzs.toArray()[0];
                 }
+            }
+
+
+            //无法找到实现类，抛出异常
+            if (implClass == null) {
+                logger.error("can't find implement class: " + clazzName);
+                throw new NoImplClassFoundException();
             }
         }
         return null;
@@ -182,16 +195,30 @@ public class ExtensionLoader<T> {
 
 
         final String finalClazzName = className.toString();
+        //在com.jingl包下寻找实现类
         Set<Class> clazzs = ClassHelper.scan(Constants.PACKAGE_NAME, x -> {
             String simpleName = x.getSimpleName();
             return StringUtils.equals(simpleName, finalClazzName);
         });
-        if (clazzs.size() == 1) {
+        if (clazzs.size() > 0) {
             return (Class) clazzs.toArray()[0];
-        } else {
-            logger.error("can't find implement class: " + className);
-            throw new NoImplClassFoundException();
         }
+
+        final String[] packages = PropertyUtils.getProperty(Constants.PROPERTY_PACKAGES).split("[\\s,]");
+        for (String p : packages) {
+            clazzs = ClassHelper.scan(p, x -> {
+                String simpleName = x.getSimpleName();
+                return StringUtils.equals(simpleName, finalClazzName);
+            });
+
+            if (clazzs.size() > 0) {
+                return (Class) clazzs.toArray()[0];
+            }
+        }
+
+
+        logger.error("can't find implement class: " + className);
+        throw new NoImplClassFoundException();
     }
 
     /**

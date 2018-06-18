@@ -2,6 +2,7 @@ package com.jingl.rpc.common.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class Request implements Serializable {
     private String methodName;//调用方法名称
     private Class[] types;  //返回值类型
     private Object[] params;//调用方法参数
-    private Map values;
+    private Map values = new HashMap();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
