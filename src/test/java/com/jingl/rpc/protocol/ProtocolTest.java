@@ -1,7 +1,7 @@
 package com.jingl.rpc.protocol;
 
 import com.jingl.rpc.common.extension.ExtensionLoader;
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import org.junit.Test;
 
 /**

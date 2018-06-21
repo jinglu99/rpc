@@ -1,9 +1,6 @@
 package com.jingl.rpc.proxy;
 
-import com.jingl.rpc.common.extension.ExtensionLoader;
-import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
-import com.jingl.rpc.protocol.Protocol;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import net.sf.cglib.proxy.Enhancer;
 
 /**

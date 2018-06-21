@@ -1,6 +1,6 @@
 package com.jingl.rpc.server;
 
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import com.jingl.rpc.proxy.CglibReferProxy;
 import com.jingl.rpc.proxy.Proxy;
 import com.jingl.rpc.proxy.RemoteInterface;

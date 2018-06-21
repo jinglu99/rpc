@@ -5,7 +5,7 @@ import com.jingl.rpc.common.entity.Request;
 import com.jingl.rpc.common.exceptions.InvokerException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import com.jingl.rpc.protocol.Protocol;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;

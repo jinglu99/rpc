@@ -1,6 +1,7 @@
 package com.jingl.rpc.protocol;
 
 import com.jingl.rpc.cluster.Cluster;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import com.jingl.rpc.common.exceptions.NotInvokerException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;

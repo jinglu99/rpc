@@ -7,7 +7,7 @@ import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import com.jingl.rpc.pools.ProviderPool;
 import com.jingl.rpc.protocol.Protocol;
 import com.jingl.rpc.register.Register;

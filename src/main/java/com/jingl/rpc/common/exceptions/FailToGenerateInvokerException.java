@@ -1,4 +1,4 @@
-package com.jingl.rpc.handle.invokers;
+package com.jingl.rpc.common.exceptions;
 
 /**
  * Created by Ben on 2018/5/19.

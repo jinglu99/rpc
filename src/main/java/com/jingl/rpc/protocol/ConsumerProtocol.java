@@ -3,7 +3,7 @@ package com.jingl.rpc.protocol;
 import com.jingl.rpc.common.Constants;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.handle.Invoker;
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import com.jingl.rpc.utils.PropertyUtils;
 
 /**

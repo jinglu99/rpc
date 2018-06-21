@@ -1,12 +1,10 @@
 package com.jingl.rpc.register.zk;
 
-import com.jingl.rpc.common.entity.URL;
 import com.jingl.rpc.common.exceptions.ServiceExportFailedException;
 import com.jingl.rpc.common.extension.ExtensionLoader;
 import com.jingl.rpc.container.Container;
-import com.jingl.rpc.handle.invokers.FailToGenerateInvokerException;
+import com.jingl.rpc.common.exceptions.FailToGenerateInvokerException;
 import com.jingl.rpc.register.Register;
-import org.apache.zookeeper.ZooKeeper;
 import org.junit.Test;
 
 /**
