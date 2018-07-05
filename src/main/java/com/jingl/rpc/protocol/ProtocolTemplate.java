@@ -104,7 +104,7 @@ public abstract class ProtocolTemplate {
             if (!isSet)
                 init();
 
-            Invoker afterResponseInvoker = getInvoker(afterMethod);
+            Invoker afterResponseInvoker = getInvoker(afterResponse);
             ProviderPool.setAfterResponseInvoker(afterResponseInvoker);
 
             Invoker beforeMethodInvoker = getInvoker(beforeMethod);
